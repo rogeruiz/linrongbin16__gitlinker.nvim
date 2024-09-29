@@ -23,6 +23,7 @@ For now supported platforms are:
 - https://bitbucket.org/
 - https://codeberg.org/
 - https://git.samba.org/
+- https://git.sr.ht/
 
 PRs are welcomed for other git host websites!
 
@@ -591,6 +592,7 @@ There are some pre-defined APIs in `gitlinker.routers` that you can use:
 - `bitbucket_browse`/`bitbucket_blame`: for https://bitbucket.org/.
 - `codeberg_browse`/`codeberg_blame`: for https://codeberg.org/.
 - `samba_browse`: for https://git.samba.org/ (blame not support).
+- `srht_browse` / `srht_blame`: for https://git.sr.ht/.
 
 If you need to bind a github enterprise host, please use:
 

@@ -43,6 +43,20 @@ end
 
 --- @param r gitlinker.Range?
 --- @return string?
+local function sourcehut_LC_range(r)
+  if not range.is_range(r) then
+    return nil
+  end
+  assert(r ~= nil)
+  local tmp = string.format([[#L%d]], r.lstart)
+  if type(r.lend) == "number" and r.lend > r.lstart then
+    tmp = tmp .. string.format([[-%d]], r.lend)
+  end
+  return tmp
+end
+
+--- @param r gitlinker.Range?
+--- @return string?
 local function codeberg_LC_range(r)
   if not range.is_range(r) then
     return nil
@@ -72,6 +86,7 @@ end
 -- example:
 -- https://github.com/linrongbin16/gitlinker.nvim/blob/c798df0f482bd00543023c4ec016218a2a6293a0/lua/gitlinker/routers.lua#L44-L49
 -- https://bitbucket.org/gitlinkernvim/gitlinker.nvim/src/dbf3922382576391fbe50b36c55066c1768b08b6/.gitignore#lines-1:6
+-- https://git.sr.ht/~rogeruiz/figsay/blame/main/figsay.sh#L1-3
 --
 --- @param lk gitlinker.Linker
 --- @param range_maker gitlinker.RangeStringify
@@ -159,6 +174,32 @@ local function codeberg_browse(lk)
   return builder:build("src/commit")
 end
 
+-- example: https://git.sr.ht/~rogeruiz/figsay/tree/da085c2118db359b447866d27ad409059b26fa67/item/figsay.sh#L1-3
+--- @param lk gitlinker.Linker
+--- @return string
+local function sourcehut_browse(lk)
+  local logger = logging.get("gitlinker")
+
+  logger:debug(string.format("|sourcehut_browse| lk:%s", vim.inspect(lk)))
+  local builder = "https://git.sr.ht/~"
+  -- org
+  builder = builder .. string.format("%s/", lk.org)
+  -- repo
+  builder = builder .. string.format("%s/tree/", lk.repo)
+  -- rev
+  builder = builder .. string.format("%s/item/", lk.rev)
+  -- file: `figsay.sh`
+  builder = builder .. string.format("%s", lk.file)
+  --- line number
+  builder = builder .. string.format("#L%d", lk.lstart)
+  -- end line-number if it exists and is greater than start line-number
+  if lk.lend and lk.lend > lk.lstart then
+    builder = builder .. string.format("-%d", lk.lend)
+  end
+
+  return builder
+end
+
 -- browse }
 
 -- blame {
@@ -191,6 +232,13 @@ local function codeberg_blame(lk)
   return builder:build("blame/commit")
 end
 
+--- @param lk gitlinker.Linker
+--- @return string
+local function sourcehut_blame(lk)
+  local builder = Builder:new(lk, sourcehut_LC_range)
+  return builder:build("blame")
+end
+
 -- blame }
 
 local M = {
@@ -207,12 +255,14 @@ local M = {
   gitlab_browse = gitlab_browse,
   bitbucket_browse = bitbucket_browse,
   codeberg_browse = codeberg_browse,
+  sourcehut_browse = sourcehut_browse,
 
   -- blame: `/blame`, `/annotate`
   github_blame = github_blame,
   gitlab_blame = gitlab_blame,
   bitbucket_blame = bitbucket_blame,
   codeberg_blame = codeberg_blame,
+  sourcehut_blame = sourcehut_blame,
 }
 
 return M

@@ -44,12 +44,14 @@ describe("gitlinker.gitlinker", function()
             browse_n = browse_n + 1
           elseif k == "^git%.samba%.org" then
             browse_n = browse_n + 1
+          elseif k == "^git%.sr%.ht" then
+            browse_n = browse_n + 1
           elseif k == "^git%.xyz%.com" then
             assert_eq(v, "https://git.xyz.com/browse")
             browse_n = browse_n + 1
           end
         end
-        assert_eq(browse_n, 6)
+        assert_eq(browse_n, 7)
       end
 
       assert_eq(#blame_list, 0)
@@ -64,12 +66,14 @@ describe("gitlinker.gitlinker", function()
             blame_n = blame_n + 1
           elseif k == "^codeberg%.org" then
             blame_n = blame_n + 1
+          elseif k == "^git%.sr%.ht" then
+            blame_n = blame_n + 1
           elseif k == "^git%.xyz%.com" then
             assert_eq(v, "https://git.xyz.com/blame")
             blame_n = blame_n + 1
           end
         end
-        assert_eq(blame_n, 5)
+        assert_eq(blame_n, 6)
       end
     end)
     it("test list bindings", function()
@@ -125,11 +129,13 @@ describe("gitlinker.gitlinker", function()
             browse_n = browse_n + 1
           elseif k == "^codeberg%.org" then
             browse_n = browse_n + 1
+          elseif k == "^git%.sr%.ht" then
+            browse_n = browse_n + 1
           elseif k == "^git%.samba%.org" then
             browse_n = browse_n + 1
           end
         end
-        assert_eq(browse_n, 5)
+        assert_eq(browse_n, 6)
       end
 
       assert_eq(#blame_list, 2)
@@ -160,9 +166,11 @@ describe("gitlinker.gitlinker", function()
             blame_n = blame_n + 1
           elseif k == "^codeberg%.org" then
             blame_n = blame_n + 1
+          elseif k == "^git%.sr%.ht" then
+            blame_n = blame_n + 1
           end
         end
-        assert_eq(blame_n, 4)
+        assert_eq(blame_n, 5)
       end
     end)
   end)

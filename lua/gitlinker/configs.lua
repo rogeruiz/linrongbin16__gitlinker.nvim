@@ -57,6 +57,14 @@ local Defaults = {
         .. "f={_A.FILE};"
         .. "hb={_A.REV}"
         .. "#l{_A.LSTART}",
+      -- example: https://git.sr.ht/~rogeruiz/figsay/tree/da085c2118db359b447866d27ad409059b26fa67/item/figsay.sh#L1-3
+      ["^git.sr%.ht"] = "https://git.sr.ht/~"
+          .. "{_A.ORG}/"
+          .. "{_A.REPO}/tree/"
+          .. "{_A.REV}/item/"
+          .. "{_A.FILE}"
+          .. "#L{_A.LSTART}"
+          .. "{(_A.LEND > _A.LSTART and ('-' .. _A.LEND) or '')}",
     },
     blame = {
       -- example: https://github.com/linrongbin16/gitlinker.nvim/blame/9679445c7a24783d27063cd65f525f02def5f128/lua/gitlinker.lua#L3-L7
@@ -91,6 +99,14 @@ local Defaults = {
         .. "{_A.FILE}?display=source" -- '?display=source'
         .. "#L{_A.LSTART}"
         .. "{(_A.LEND > _A.LSTART and ('-L' .. _A.LEND) or '')}",
+      -- example: https://git.sr.ht/~rogeruiz/figsay/blame/main/figsay.sh#L1-3
+      ["^git.sr%.ht"] = "https://git.sr.ht/~"
+          .. "{_A.ORG}/"
+          .. "{_A.REPO}/blame/"
+          .. "{_A.REV}/"
+          .. "{_A.FILE}"
+          .. "#L{_A.LSTART}"
+          .. "{(_A.LEND > _A.LSTART and ('-' .. _A.LEND) or '')}",
     },
     default_branch = {
       -- example: https://github.com/linrongbin16/gitlinker.nvim/blob/master/lua/gitlinker.lua#L3-L4
@@ -133,6 +149,14 @@ local Defaults = {
         .. "{_A.REPO .. '.git'};a=blob;"
         .. "f={_A.FILE}"
         .. "#l{_A.LSTART}",
+      -- example: https://git.sr.ht/~rogeruiz/figsay/tree/main/item/figsay.sh#L1-3
+      ["^git.sr%.ht"] = "https://git.sr.ht/~"
+          .. "{_A.ORG}/"
+          .. "{_A.REPO}/tree/"
+          .. "{_A.DEFAULT_BRANCH}/item/"
+          .. "{_A.FILE}"
+          .. "#L{_A.LSTART}"
+          .. "{(_A.LEND > _A.LSTART and ('-' .. _A.LEND) or '')}",
     },
     current_branch = {
       -- example: https://github.com/linrongbin16/gitlinker.nvim/blob/master/lua/gitlinker.lua#L3-L4
@@ -175,6 +199,14 @@ local Defaults = {
         .. "{_A.REPO .. '.git'};a=blob;"
         .. "f={_A.FILE}"
         .. "#l{_A.LSTART}",
+      -- example: https://git.sr.ht/~rogeruiz/figsay/tree/main/item/figsay.sh#L1-3
+      ["^git.sr%.ht"] = "https://git.sr.ht/~"
+          .. "{_A.ORG}/"
+          .. "{_A.REPO}/tree/"
+          .. "{_A.CURRENT_BRANCH}/item/"
+          .. "{_A.FILE}"
+          .. "#L{_A.LSTART}"
+          .. "{(_A.LEND > _A.LSTART and ('-' .. _A.LEND) or '')}",
     },
   },
 
